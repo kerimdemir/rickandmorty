@@ -7,32 +7,41 @@ import {
   fetchEpisode,
   fetchEpisodeList,
 } from '../../store/actions/episode.actions';
+import {fetchCharacter} from '../../store/actions/character.actions';
 
 const Home = ({
   episode: {fetching, episodeList, episode},
+  character: {character},
   fetchEpisodeList,
   fetchEpisode,
+  fetchCharacter,
 }) => {
   useEffect(() => {
     fetchEpisodeList();
   }, [fetchEpisodeList]);
 
-  function onItemPressed(id) {
+  function onEpisodeItemPressed(id) {
     fetchEpisode(id);
+  }
+
+  function onCharacterItemPressed(id) {
+    fetchCharacter(id);
   }
 
   function Item({item}) {
     return (
       <View>
-        <TouchableOpacity onPress={() => onItemPressed(item.id)}>
+        <TouchableOpacity onPress={() => onEpisodeItemPressed(item.id)}>
           <Text style={styles.title}>{item.name}</Text>
         </TouchableOpacity>
         {episode && item.id == episode.id && (
-          <View style={styles.episodeContainer}>
+          <TouchableOpacity
+            onPress={() => onCharacterItemPressed(item.id)}
+            style={styles.episodeContainer}>
             <Text> {episode.air_date} </Text>
             <Text> {episode.name} </Text>
             <Text> {episode.url} </Text>
-          </View>
+          </TouchableOpacity>
         )}
       </View>
     );
@@ -51,6 +60,6 @@ const Home = ({
   );
 };
 
-const mapDispatchToProps = {fetchEpisodeList, fetchEpisode};
-const mapStateToProps = ({episode}) => ({episode});
+const mapDispatchToProps = {fetchEpisodeList, fetchEpisode, fetchCharacter};
+const mapStateToProps = ({episode, character}) => ({episode, character});
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
