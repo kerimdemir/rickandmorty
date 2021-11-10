@@ -1,17 +1,41 @@
 import React, {useEffect} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import styles from './styles';
 import {Divider, Loader} from '../../components';
-import {fetchEpisodeList} from '../../store/actions/episode.actions';
+import {
+  fetchEpisode,
+  fetchEpisodeList,
+} from '../../store/actions/episode.actions';
 
-const Home = ({episode: {episodeList, fetching}, fetchEpisodeList}) => {
+const Home = ({
+  episode: {fetching, episodeList, episode},
+  fetchEpisodeList,
+  fetchEpisode,
+}) => {
   useEffect(() => {
     fetchEpisodeList();
   }, [fetchEpisodeList]);
 
-  function Item({name}) {
-    return <Text style={styles.title}>{name}</Text>;
+  function onItemPressed(id) {
+    fetchEpisode(id);
+  }
+
+  function Item({item}) {
+    return (
+      <View>
+        <TouchableOpacity onPress={() => onItemPressed(item.id)}>
+          <Text style={styles.title}>{item.name}</Text>
+        </TouchableOpacity>
+        {episode && item.id == episode.id && (
+          <View style={styles.episodeContainer}>
+            <Text> {episode.air_date} </Text>
+            <Text> {episode.name} </Text>
+            <Text> {episode.url} </Text>
+          </View>
+        )}
+      </View>
+    );
   }
 
   return (
@@ -21,12 +45,12 @@ const Home = ({episode: {episodeList, fetching}, fetchEpisodeList}) => {
       <Divider />
       <FlatList
         data={episodeList}
-        renderItem={({item, index}) => <Item key={index} name={item.name} />}
+        renderItem={({item, index}) => <Item key={index} item={item} />}
       />
     </View>
   );
 };
 
-const mapDispatchToProps = {fetchEpisodeList};
+const mapDispatchToProps = {fetchEpisodeList, fetchEpisode};
 const mapStateToProps = ({episode}) => ({episode});
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
