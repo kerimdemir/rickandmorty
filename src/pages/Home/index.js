@@ -8,6 +8,8 @@ import {
   fetchEpisodeList,
 } from '../../store/actions/episode.actions';
 import {fetchCharacter} from '../../store/actions/character.actions';
+import EpisodeCard from './EpisodeCard';
+import PromotionCard from './PromotionCard';
 
 const Home = ({
   episode: {fetching, episodeList, episode},
@@ -20,41 +22,14 @@ const Home = ({
     fetchEpisodeList();
   }, [fetchEpisodeList]);
 
-  function onEpisodeItemPressed(id) {
-    fetchEpisode(id);
-  }
-
-  function onCharacterItemPressed(id) {
-    fetchCharacter(id);
-  }
-
-  function Item({item}) {
-    return (
-      <View>
-        <TouchableOpacity onPress={() => onEpisodeItemPressed(item.id)}>
-          <Text style={styles.title}>{item.name}</Text>
-        </TouchableOpacity>
-        {episode && item.id == episode.id && (
-          <TouchableOpacity
-            onPress={() => onCharacterItemPressed(item.id)}
-            style={styles.episodeContainer}>
-            <Text> {episode.air_date} </Text>
-            <Text> {episode.name} </Text>
-            <Text> {episode.url} </Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
       {fetching && <Loader />}
-      <Text> Episode </Text>
-      <Divider />
+      <PromotionCard />
+      <Text>Episode List </Text>
       <FlatList
         data={episodeList}
-        renderItem={({item, index}) => <Item key={index} item={item} />}
+        renderItem={episodes => <EpisodeCard item={episodes.item} />}
       />
     </View>
   );

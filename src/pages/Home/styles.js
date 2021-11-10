@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Metrics} from '../../themes';
+import React from 'react';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,6 +13,7 @@ const styles = StyleSheet.create({
     borderRadius: Metrics.buttonRadius,
     marginBottom: Metrics.WIDTH * 0.02,
   },
+
   title: {
     marginHorizontal: Metrics.WIDTH * 0.02,
     marginVertical: Metrics.HEIGHT * 0.01,

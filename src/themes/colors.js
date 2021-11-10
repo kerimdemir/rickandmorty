@@ -1,4 +1,5 @@
 const colors = {
-  TEMPLATE_COLOR: '#21A8B6',
+  TEMPLATE_COLOR: '#19666e',
+
 };
 export default colors;

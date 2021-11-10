@@ -1,16 +1,18 @@
 import {Dimensions} from 'react-native';
+import {Fonts} from './index';
 
 const {width, height} = Dimensions.get('window');
 const guidelineBaseWidth = 350;
 const guidelineBaseHeight = 680;
 
-const scale = (size) => (width / guidelineBaseWidth) * size;
-const verticalScale = (size) => (height / guidelineBaseHeight) * size;
+const scale = size => (width / guidelineBaseWidth) * size;
+const verticalScale = size => (height / guidelineBaseHeight) * size;
 const moderateScale = (size, factor = 0.5) =>
   size + (scale(size) - size) * factor;
 
 const type = {
   bold: 'HelveticaNeue-Bold',
+  base: 'HelveticaNeue-Light',
   black: 'HelveticaNeue-Black',
   blackItalic: 'HelveticaNeue-BlackItalic',
   boldItalic: 'HelveticaNeue-BoldItalic',
@@ -30,6 +32,7 @@ const type = {
 };
 const size = {
   input: {fontSize: moderateScale(25), fontFamily: type.base},
+  large: 20,
   regular: 17,
   medium: 14,
   small: 12,
