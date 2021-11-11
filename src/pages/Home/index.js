@@ -1,24 +1,19 @@
-import React, {useEffect} from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import {connect} from 'react-redux';
-import styles from './styles';
-import {Divider, Loader} from '../../components';
+import React, { useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
+import styles from "./styles";
+import { Divider, Loader } from "../../components";
 import {
-  fetchEpisode,
   fetchEpisodeList,
-} from '../../store/actions/episode.actions';
-import {fetchCharacter} from '../../store/actions/character.actions';
-import EpisodeCard from './EpisodeCard';
-import PromotionCard from './PromotionCard';
+} from "../../store/actions/episode.actions";
+import EpisodeCard from "./EpisodeCard";
+import PromotionCard from "./PromotionCard";
 
 const Home = ({
-  navigation,
-  episode: {fetching, episodeList, episode},
-  character: {character},
-  fetchEpisodeList,
-  fetchEpisode,
-  fetchCharacter,
-}) => {
+                navigation,
+                episode: { fetching, episodeList },
+                fetchEpisodeList,
+              }) => {
   useEffect(() => {
     fetchEpisodeList();
   }, [fetchEpisodeList]);
@@ -32,12 +27,14 @@ const Home = ({
       <FlatList
         showsVerticalScrollIndicator={false}
         data={episodeList}
-        renderItem={episodes => <EpisodeCard navigation={navigation} item={episodes.item} />}
+        renderItem={episodes => (
+          <EpisodeCard navigation={navigation} item={episodes.item} />
+        )}
       />
     </View>
   );
 };
 
-const mapDispatchToProps = {fetchEpisodeList, fetchEpisode, fetchCharacter};
-const mapStateToProps = ({episode, character}) => ({episode, character});
+const mapDispatchToProps = { fetchEpisodeList };
+const mapStateToProps = ({ episode }) => ({ episode });
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,12 +1,11 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 
-import {Colors, Fonts, Images} from '../../themes';
+import {Colors, Fonts} from '../../themes';
 import Metrics from '../../themes/metrics';
 
 function EpisodeCard({item, navigation}) {
   function onEpisodeItemPressed(id) {
-    // fetchEpisode(id);
     navigation.navigate('Details', {episodeId: id});
   }
 
@@ -15,14 +14,6 @@ function EpisodeCard({item, navigation}) {
       style={styles.episodeCardContainer}
       activeOpacity={0.8}
       onPress={() => onEpisodeItemPressed(item.id)}>
-      {/*
-         <Text>
-          air_date: "December 2, 2013" characters: (19) created:
-          "2017-11-10T12:56:33.798Z" episode: "S01E01" id: 1 name: "Pilot" url:
-          "https://rickandmortyapi.com/api/episode/1"
-        </Text>
-        */}
-
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
