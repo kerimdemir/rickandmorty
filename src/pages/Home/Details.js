@@ -39,8 +39,8 @@ const Details = ({
         activeOpacity={0.8}
         onPress={() => onItemPressed(item)}>
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={Images.character} />
-          <Text style={styles.subTitle}> Character {item.split('/')[5]}</Text>
+          <Text style={styles.subTitle}> Character {item.split('/')[5] }</Text>
+          <Text style={styles.arrowIcon}> ➜ </Text>
         </View>
       </TouchableOpacity>
     );
@@ -78,22 +78,24 @@ const styles = StyleSheet.create({
   },
   episodeCardContainer: {
     flexDirection: 'row',
-    margin: Metrics.WIDTH * 0.02,
+    margin: Metrics.WIDTH * 0.015,
   },
   episodeText: {
     fontFamily: Fonts.type.bold,
     fontSize: Fonts.size.medium,
     marginTop: Metrics.HEIGHT * 0.01,
   },
-  imageContainer: {},
-  textContainer: {},
-  image: {
+  imageContainer: {
+    borderRadius: Metrics.borderRadius,
     borderWidth: 0.5,
-    borderRadius: 50,
-    overflow: 'hidden',
-    width: 100,
-    height: 100,
+    width: 140,
+    borderColor: '#928f8f',
+    flexDirection:'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
+  textContainer: {},
+
   subTitle: {
     marginLeft: Metrics.WIDTH * 0.01,
     padding: Metrics.WIDTH * 0.01,
@@ -107,4 +109,8 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.base,
     fontSize: Fonts.size.regular,
   },
+  arrowIcon:{
+    color: 'rgba(0,0,0,0.6)',
+
+  }
 });
