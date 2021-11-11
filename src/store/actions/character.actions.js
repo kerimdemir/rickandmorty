@@ -20,3 +20,10 @@ export const fetchCharacter = url => dispatch => {
       });
     });
 };
+
+export const clearCharacter = () => dispatch => {
+  dispatch({
+    type: keys.CLEAR_CHARACTER,
+    payload: '',
+  });
+};

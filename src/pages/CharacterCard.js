@@ -1,19 +1,18 @@
-import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import Metrics from "../../themes/metrics";
-import { connect } from "react-redux";
-import { Divider, Loader } from "../../components";
-import { Colors, Fonts } from "../../themes";
+import React from 'react';
+import {View, Text, StyleSheet, Image} from 'react-native';
+import Metrics from '../themes/metrics';
+import {connect} from 'react-redux';
+import {Divider, Loader} from '../components';
+import {Colors, Fonts} from '../themes';
 
-const CharacterList = ({ character: { character, fetching } }) => {
+const CharacterList = ({character: {character, fetching}}) => {
   return (
     <View style={styles.card}>
       {fetching ? (
-
         <Loader />
       ) : (
         <View style={styles.container}>
-          <Image style={styles.image} source={{ uri: character.image }} />
+          <Image style={styles.image} source={{uri: character.image}} />
 
           <View style={styles.infoContainer}>
             <Text style={styles.infoText}>Name:</Text>
@@ -21,7 +20,7 @@ const CharacterList = ({ character: { character, fetching } }) => {
               {character.name}
             </Text>
           </View>
-          <Divider/>
+          <Divider />
           <View style={styles.infoContainer}>
             <Text style={styles.infoText}>Status:</Text>
             <Text numberOfLines={1} style={styles.infoValue}>
@@ -37,7 +36,7 @@ const CharacterList = ({ character: { character, fetching } }) => {
           <View style={styles.infoContainer}>
             <Text style={styles.infoText}>Type:</Text>
             <Text numberOfLines={1} style={styles.infoValue}>
-              {character.type ? character.type : "-"}
+              {character.type ? character.type : '-'}
             </Text>
           </View>
           <View style={styles.infoContainer}>
@@ -53,20 +52,19 @@ const CharacterList = ({ character: { character, fetching } }) => {
             </Text>
           </View>
         </View>
-
       )}
     </View>
   );
 };
 
 const mapDispatchToProps = {};
-const mapStateToProps = ({ character }) => ({ character });
+const mapStateToProps = ({character}) => ({character});
 export default connect(mapStateToProps, mapDispatchToProps)(CharacterList);
 
 const styles = StyleSheet.create({
-  card:{flex:20,alignItems: 'center',justifyContent: 'center'},
+  card: {flex: 20, alignItems: 'center', justifyContent: 'center'},
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: Metrics.borderRadius,
     borderWidth: 0.5,
     padding: 10,
@@ -76,27 +74,25 @@ const styles = StyleSheet.create({
   image: {
     borderWidth: 0.5,
     borderRadius: 150,
-    overflow: "hidden",
+    overflow: 'hidden',
     width: 150,
     height: 150,
   },
-  infoContainer: {
-
-  },
+  infoContainer: {},
   infoText: {
-    textAlign: "center",
+    textAlign: 'center',
     padding: Metrics.WIDTH * 0.01,
     fontFamily: Fonts.type.thin,
     fontSize: Fonts.size.medium,
-    color: "rgba(0,0,0,0.6)",
+    color: 'rgba(0,0,0,0.6)',
   },
   infoValue: {
-    textAlign: "center",
+    textAlign: 'center',
     padding: Metrics.WIDTH * 0.01,
     color: Colors.TEMPLATE_COLOR,
     marginLeft: Metrics.WIDTH * 0.01,
     fontFamily: Fonts.type.base,
     fontSize: Fonts.size.medium,
-    marginTop:5,
+    marginTop: 5,
   },
 });

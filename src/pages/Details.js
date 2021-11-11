@@ -1,18 +1,20 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {Divider, Loader} from '../../components';
-import {fetchEpisode} from '../../store/actions/episode.actions';
-import {fetchCharacter} from '../../store/actions/character.actions';
+import {Divider, Loader} from '../components';
+import {fetchEpisode} from '../store/actions/episode.actions';
+import {
+  fetchCharacter,
+  clearCharacter,
+} from '../store/actions/character.actions';
 import EpisodeCard from './EpisodeCard';
-import {Metrics, Colors, Fonts, Images} from '../../themes';
+import {Metrics, Colors, Fonts, Images} from '../themes';
 import CharacterCard from './CharacterCard';
 
 const Details = ({
@@ -22,14 +24,30 @@ const Details = ({
   character: {character},
   fetchEpisode,
   fetchCharacter,
+  clearCharacter,
 }) => {
   const {episodeId} = route.params;
+  const [selectedId, setSelectedId] = useState(null);
   useEffect(() => {
     fetchEpisode(episodeId);
+
+    return () => {
+      clearCharacter();
+    };
   }, [fetchEpisode]);
 
   function onItemPressed(url) {
     fetchCharacter(url);
+    let id = url.split('/')[5];
+    setSelectedId(id);
+  }
+
+  function itemBackgroundColor(id) {
+    if (selectedId == id) {
+      return Colors.TEMPLATE_COLOR;
+    } else {
+      return 'white';
+    }
   }
 
   function renderItem(item) {
@@ -38,8 +56,12 @@ const Details = ({
         style={styles.episodeCardContainer}
         activeOpacity={0.8}
         onPress={() => onItemPressed(item)}>
-        <View style={styles.imageContainer}>
-          <Text style={styles.subTitle}> Character {item.split('/')[5] }</Text>
+        <View
+          style={{
+            ...styles.imageContainer,
+            backgroundColor: itemBackgroundColor(item.split('/')[5]),
+          }}>
+          <Text style={styles.subTitle}> Character {item.split('/')[5]}</Text>
           <Text style={styles.arrowIcon}> ➜ </Text>
         </View>
       </TouchableOpacity>
@@ -48,8 +70,11 @@ const Details = ({
 
   return (
     <View style={styles.container}>
-      {fetching && <Loader />}
-      {episode && <EpisodeCard navigation={navigation} item={episode} />}
+      {fetching ? (
+        <Loader />
+      ) : (
+        episode && <EpisodeCard navigation={navigation} item={episode} />
+      )}
       <Text style={styles.episodeText}>Characters </Text>
       <Divider />
       <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center'}}>
@@ -66,7 +91,7 @@ const Details = ({
   );
 };
 
-const mapDispatchToProps = {fetchEpisode, fetchCharacter};
+const mapDispatchToProps = {fetchEpisode, fetchCharacter, clearCharacter};
 const mapStateToProps = ({episode, character}) => ({episode, character});
 export default connect(mapStateToProps, mapDispatchToProps)(Details);
 
@@ -86,11 +111,12 @@ const styles = StyleSheet.create({
     marginTop: Metrics.HEIGHT * 0.01,
   },
   imageContainer: {
+    backgroundColor: '#FFF',
     borderRadius: Metrics.borderRadius,
     borderWidth: 0.5,
     width: 140,
     borderColor: '#928f8f',
-    flexDirection:'row',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -109,8 +135,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.base,
     fontSize: Fonts.size.regular,
   },
-  arrowIcon:{
+  arrowIcon: {
     color: 'rgba(0,0,0,0.6)',
-
-  }
+  },
 });

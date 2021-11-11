@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 
-import {Colors, Fonts} from '../../themes';
-import Metrics from '../../themes/metrics';
+import {Colors, Fonts} from '../themes';
+import Metrics from '../themes/metrics';
 
 function EpisodeCard({item, navigation}) {
   function onEpisodeItemPressed(id) {

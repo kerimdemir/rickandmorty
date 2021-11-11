@@ -6,8 +6,8 @@ import { Divider, Loader } from "../../components";
 import {
   fetchEpisodeList,
 } from "../../store/actions/episode.actions";
-import EpisodeCard from "./EpisodeCard";
-import PromotionCard from "./PromotionCard";
+import EpisodeCard from "../EpisodeCard";
+import PromotionCard from "../PromotionCard";
 
 const Home = ({
                 navigation,

@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
-import {Divider} from '../../components';
-import {Colors, Fonts, Images} from '../../themes';
-import Metrics from '../../themes/metrics';
+import {Divider} from '../components';
+import {Colors, Fonts, Images} from '../themes';
+import Metrics from '../themes/metrics';
 
 function PromotionCard({item}) {
 

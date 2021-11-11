@@ -1,4 +1,4 @@
-import * as keys from '../keys/character.keys';
+import * as keys from "../keys/character.keys";
 
 const initialState = {};
 export default (state = initialState, action) => {
@@ -20,6 +20,11 @@ export default (state = initialState, action) => {
         ...state,
         error: action.payload,
         fetching: false,
+      };
+    case keys.CLEAR_CHARACTER:
+      return {
+        ...state,
+        character: null,
       };
 
     default:
