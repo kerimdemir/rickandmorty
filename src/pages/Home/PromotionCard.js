@@ -5,7 +5,7 @@ import {Colors, Fonts, Images} from '../../themes';
 import Metrics from '../../themes/metrics';
 
 function PromotionCard({item}) {
-  
+
   return (
     <View style={styles.promotionCardContainer}>
       <Image style={styles.imageContainer} source={Images.rick_and_morty} />
@@ -29,7 +29,7 @@ function PromotionCard({item}) {
             <Text style={styles.infoValue}>41</Text>
           </View>
         </View>
-        <Divider />
+
       </View>
     </View>
   );

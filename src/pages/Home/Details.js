@@ -11,28 +11,29 @@ import {fetchCharacter} from '../../store/actions/character.actions';
 import EpisodeCard from './EpisodeCard';
 import PromotionCard from './PromotionCard';
 
-const Home = ({
+const Details = ({
   navigation,
+  route,
   episode: {fetching, episodeList, episode},
   character: {character},
   fetchEpisodeList,
   fetchEpisode,
   fetchCharacter,
 }) => {
+  const {episodeId} = route.params;
   useEffect(() => {
-    fetchEpisodeList();
-  }, [fetchEpisodeList]);
+    fetchEpisode(episodeId);
+  }, [fetchEpisode]);
 
   return (
     <View style={styles.container}>
       {fetching && <Loader />}
-      <PromotionCard />
-      <Text style={styles.episodeText}>Episode List </Text>
+      {episode && <EpisodeCard navigation={navigation} item={episode} />}
       <Divider />
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={episodeList}
-        renderItem={episodes => <EpisodeCard navigation={navigation} item={episodes.item} />}
+        data={episode}
+        renderItem={episodes => <EpisodeCard item={episodes.item} />}
       />
     </View>
   );
@@ -40,4 +41,4 @@ const Home = ({
 
 const mapDispatchToProps = {fetchEpisodeList, fetchEpisode, fetchCharacter};
 const mapStateToProps = ({episode, character}) => ({episode, character});
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

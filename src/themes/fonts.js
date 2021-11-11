@@ -33,7 +33,7 @@ const type = {
 const size = {
   input: {fontSize: moderateScale(25), fontFamily: type.base},
   large: 20,
-  regular: 17,
+  regular: 16,
   medium: 14,
   small: 12,
   tiny: 8.5,
